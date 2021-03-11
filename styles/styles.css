@@ -1,0 +1,44 @@
+/*
+div {
+    font-size: 20px;
+    border-style: solid;
+    border-width: 1px;
+    margin: 10px;
+    padding: 10px;
+}
+*/
+.postDiv {
+    margin-bottom: 20px;
+}
+
+div.flex-container-postHeader{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    display: flex;
+    flex-direction: row;
+}
+
+div.flex-container-postBody{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    display: flex;
+    flex-direction: row;
+}
+
+div.flex-userId{
+    flex-grow: 1;
+    text-align: left;
+    padding: 10px;
+}
+
+div.flex-postId{
+    flex-grow: 1;
+    text-align: right;
+    padding: 10px;
+}
+
+div.flex-postTitle{
+    padding: 10px;
+}
