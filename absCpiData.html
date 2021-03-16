@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   
+  <script> 
+
+let url = 'http://stat.data.abs.gov.au/sdmx-json/data/CPI/1.50.10001.10.Q/all?detail=Full&dimensionAtObservation=AllDimensions'
+
+  async function callEJ(url){
+    
+    let response = await fetch(url,{headers:{accept:'application/json'}})
+    if(!response.ok){
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    else{
+      //extracting the json data from our fetch() response
+      let json = await response.json();
+      
+      //extracting the date data into an object
+      let datesObject = await json.structure.dimensions.observation[5].values;
+      let dates = [];
+      //extracting date values and storing them in an array called 'dates'
+      for(let date in datesObject){
+        dates[date]=datesObject[date].name;  
+      }
+      //console.log(dates);
+
+      //extracting data values into an object
+      let dataValuesObject = await json.dataSets[0].observations;
+
+      //storing data values in an array called 'dataSet'
+      let dataSet = [];
+      let counter = 0;
+      for(let dataPoint in dataValuesObject){
+        //console.log(dataValuesObject[dataPoint][0]);
+        dataSet[counter]=dataValuesObject[dataPoint][0];
+        counter ++;
+      }
+      console.log(dataSet);
+      
+      //combining dates and dataPoints
+      
+      let masterDataSet = {};
+      for(let i in dates){
+        masterDataSet[dates[i]]=dataSet[i];
+      }
+      console.log(masterDataSet);
+      
+      /*
+      for(let i in dataPoints){
+        //console.log(`${i}: ${data[i]}`);
+        let p = document.createElement('p');
+        p.textContent = `${i}: ${dataPoints[i]}`;
+        p.style.fontSize = '20px';
+        document.body.appendChild(p);
+      }
+      */
+    }
+  } 
+
+  callEJ(url)
+  .catch((error)=>{
+      console.log(error, error.message);
+    });
+  </script>
+</body>
+</html>
