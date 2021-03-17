@@ -42,25 +42,37 @@ let url = 'http://stat.data.abs.gov.au/sdmx-json/data/CPI/1.50.10001.10.Q/all?de
         dataSet[counter]=dataValuesObject[dataPoint][0];
         counter ++;
       }
-      console.log(dataSet);
+      //console.log(dataSet);
       
       //combining dates and dataPoints
-      
       let masterDataSet = {};
       for(let i in dates){
         masterDataSet[dates[i]]=dataSet[i];
       }
-      console.log(masterDataSet);
+      //console.log(masterDataSet);
       
+      /* updating the DOM */
+      //printing the cleaned data set to screen
       /*
-      for(let i in dataPoints){
+      for(let i in masterDataSet){
         //console.log(`${i}: ${data[i]}`);
         let p = document.createElement('p');
-        p.textContent = `${i}: ${dataPoints[i]}`;
+        p.textContent = `${i}: ${masterDataSet[i]}`;
         p.style.fontSize = '20px';
         document.body.appendChild(p);
+        //console.log(typeof masterDataSet[i]);
+      }*/
+      
+      //adding some divs to graph the data in a crude manner
+      for(j in masterDataSet){
+        let column = document.createElement('div');
+        document.body.appendChild(column);
+        column.style.marginBottom = '5px';
+        column.style.width = `${masterDataSet[`${j}`]*10}px`;
+        column.style.height = '5px';
+        column.style.backgroundColor = 'blue';
       }
-      */
+      //console.log(window.innerWidth);
     }
   } 
 
