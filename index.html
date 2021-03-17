@@ -29,30 +29,40 @@
   document.body.appendChild(canvas);
   //storing the canvas.getContext in a binding called 'context'
   let context = canvas.getContext('2d');
-  //begin outlining the path
   
-  //setting centre of pie chart and radius and initialising path
-  let startingX = 150;
-  let startingY = 75;
-  let radius = 50;
-
-  //variables to store dynamic x and y coords
-  let x = startingX;
-  let y = startingY;
-  let angle = Math.PI * -.5;
-  for(let i in results){
-      console.log(results[i].count);
-    //start at the centre, draw the arc, draw a line back to the centre,
-    //let .fill() close the path and fill in the closed path / pie slice
-    context.beginPath();
-    context.moveTo(startingX,startingY);
-    context.arc(x,y,radius,angle,angle+(results[i].count/total)*2*Math.PI);
-    context.lineTo(x,y);
-    context.fillStyle = results[i].color;
-    context.fill();
-    angle += (results[i].count/total)*2*Math.PI;
-  }
+  let drawPieChart = function drawCircle(){
+      //console.log('hi');
+      document.body.appendChild(canvas);
+        //setting centre of pie chart and radius and initialising path
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight < window.innerWidth ? window.innerHeight: window.innerWidth;
+      
+      let startingX = canvas.width/2;
+      let startingY = canvas.height/2;
+      let radius = canvas.height/3;
+      startingX = canvas.width/2;
+      startingY = canvas.height/2;
+      radius = canvas.height/3;
+      
+      //variables to store dynamic x and y coords
+      let x = startingX;
+      let y = startingY;
+      let angle = Math.PI * -.5;
+      for(let i in results){
+        //begin outlining the path
+        context.beginPath();
+        //start at the centre, draw the arc, draw a line back to the centre,
+        //let .fill() close the path and fill in the closed path / pie slice
+        context.moveTo(startingX,startingY);
+        context.arc(x,y,radius,angle,angle+(results[i].count/total)*2*Math.PI);
+        context.lineTo(x,y);
+        context.fillStyle = results[i].color;
+        context.fill();
+        angle += (results[i].count/total)*2*Math.PI;
+      }
+    }
+  drawPieChart();
+  window.addEventListener('resize' ,(event)=>{drawPieChart();}); 
 </script>
-
 </body>
 </html>
