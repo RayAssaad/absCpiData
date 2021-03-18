@@ -26,43 +26,62 @@
 
   //creating the canvas element
   let canvas = document.createElement('canvas');
+  canvas.height = 1000;
   document.body.appendChild(canvas);
   //storing the canvas.getContext in a binding called 'context'
   let context = canvas.getContext('2d');
   
-  let drawPieChart = function drawCircle(){
-      //console.log('hi');
-      document.body.appendChild(canvas);
-        //setting centre of pie chart and radius and initialising path
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight < window.innerWidth ? window.innerHeight: window.innerWidth;
+  context.font = 'bold 50px Times New Roman';
+  context.fillStyle = 'blue';
+  let x = 100;
+  let y = 50;
+  let yTerminal = 50;
+  let gravity = 5;
+  let deltaY = gravity;
+  text = context.fillText('Test',x,y);
+
+  
+  //context.strokeText('Test',200,100);
+  let start;
+  function step(timestamp){
+      if(start === undefined)
+        start === Date.now()
+      const elapsed = Date.now() - start;
+        
+      context.clearRect(0, 0, canvas.width, canvas.height);  
+      if(deltaY >= 0){
+        deltaY += gravity;
+        y += deltaY;
+        //console.log(y);
+        //console.log(deltaY);
+        if(y > (canvas.height)){
+          y = canvas.height;
+          deltaY = -deltaY*.9; 
+        }
+      } else if(deltaY < 0){
+        deltaY += gravity;
+        y += deltaY;
+        //console.log(y);
+        //console.log(deltaY);
+        if(deltaY >= 0){
+          yTerminal = y;
+          console.log(yTerminal - canvas.height);
+          if(yTerminal - canvas.height >= 0){
+            //y = canvas.height;
+            return;   
+          }
+        }
+      };
       
-      let startingX = canvas.width/2;
-      let startingY = canvas.height/2;
-      let radius = canvas.height/3;
-      startingX = canvas.width/2;
-      startingY = canvas.height/2;
-      radius = canvas.height/3;
-      
-      //variables to store dynamic x and y coords
-      let x = startingX;
-      let y = startingY;
-      let angle = Math.PI * -.5;
-      for(let i in results){
-        //begin outlining the path
-        context.beginPath();
-        //start at the centre, draw the arc, draw a line back to the centre,
-        //let .fill() close the path and fill in the closed path / pie slice
-        context.moveTo(startingX,startingY);
-        context.arc(x,y,radius,angle,angle+(results[i].count/total)*2*Math.PI);
-        context.lineTo(x,y);
-        context.fillStyle = results[i].color;
-        context.fill();
-        angle += (results[i].count/total)*2*Math.PI;
-      }
-    }
-  drawPieChart();
-  window.addEventListener('resize' ,(event)=>{drawPieChart();}); 
+      text = context.fillText('Test',x,y);
+      //console.log(y, ' ',canvas.height);
+    //(y < canvas.height)
+      window.requestAnimationFrame(step);
+  }
+
+      var myReq = window.requestAnimationFrame(step);
+
+  
 </script>
 </body>
 </html>
