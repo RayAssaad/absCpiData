@@ -12,75 +12,7 @@
 
 <!doctype html>
 <script>
-  const results = [
-  {name: "Satisfied", count: 1043, color: "lightblue"},
-  {name: "Neutral", count: 563, color: "lightgreen"},
-  {name: "Unsatisfied", count: 510, color: "pink"},
-  {name: "No comment", count: 175, color: "silver"}
-  ];
-  
-  let total = 0;
-  for(let i in results){
-  total += results[i].count;
-  }
-
-  //creating the canvas element
-  let canvas = document.createElement('canvas');
-  canvas.height = (window.innerHeight-50);
-  document.body.appendChild(canvas);
-  //storing the canvas.getContext in a binding called 'context'
-  let context = canvas.getContext('2d');
-  
-  context.font = 'bold 50px Times New Roman';
-  context.fillStyle = 'blue';
-  let x = 100;
-  let y = 50;
-  let yTerminal = 50;
-  let gravity = 5;
-  let deltaY = gravity;
-  text = context.fillText('Test',x,y);
-
-  
-  //context.strokeText('Test',200,100);
-  let start;
-  function step(timestamp){
-      if(start === undefined)
-        start === Date.now()
-      const elapsed = Date.now() - start;
-        
-      context.clearRect(0, 0, canvas.width, canvas.height);  
-      if(deltaY >= 0){
-        deltaY += gravity;
-        y += deltaY;
-        //console.log(y);
-        //console.log(deltaY);
-        if(y > (canvas.height)){
-          y = canvas.height;
-          deltaY = -deltaY*.9; 
-        }
-      } else if(deltaY < 0){
-        deltaY += gravity;
-        y += deltaY;
-        //console.log(y);
-        //console.log(deltaY);
-        if(deltaY >= 0){
-          yTerminal = y;
-          console.log(yTerminal - canvas.height);
-          if(yTerminal - canvas.height >= 0){
-            //y = canvas.height;
-            return;   
-          }
-        }
-      };
-      
-      text = context.fillText('Test',x,y);
-      //console.log(y, ' ',canvas.height);
-    //(y < canvas.height)
-      window.requestAnimationFrame(step);
-  }
-
-      var myReq = window.requestAnimationFrame(step);
-
+ 
   
 </script>
 </body>
