@@ -26,7 +26,7 @@
 
   //creating the canvas element
   let canvas = document.createElement('canvas');
-  canvas.height = 1000;
+  canvas.height = (window.innerHeight-50);
   document.body.appendChild(canvas);
   //storing the canvas.getContext in a binding called 'context'
   let context = canvas.getContext('2d');
