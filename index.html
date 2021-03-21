@@ -10,10 +10,42 @@
  
    <!-- Run code here in the context of Chapter 17-->
 
-<!doctype html>
-<script>
- 
-  
+<script> 
+
+let canvas = document.createElement('canvas');  
+canvas.width =  1000;
+canvas.height = 250;
+canvas.style.border = 'solid';
+document.body.appendChild(canvas);  
+let cx = canvas.getContext('2d');  
+let img = document.createElement('img');  
+img.src = './player.png';  
+let spriteHeight = 24;  
+let spriteWidth = 30;  
+  img.addEventListener('load',(event)=>{  
+    let animateCount = 1;  
+    //setting the scale of the transformation
+    //cx.scale(1,1);
+    //shifting the origin 200px to the right of the 
+    let mirrorX = 500; 
+
+    cx.translate(mirrorX,0)
+
+    let dx = 0;  
+    let dy = 0;
+    //setting the scale of the image
+    cx.scale(-1,1);
+    cx.translate(-mirrorX,0)
+  	cx.drawImage(img,spriteHeight*animateCount,0,spriteHeight,spriteWidth,  
+                   dx,dy,spriteHeight,spriteWidth);  
+    /*
+    cx.scale(1,1);
+    cx.translate(-250,0)
+    */
+   });  
+
+
 </script>
 </body>
 </html>
+
